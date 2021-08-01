@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private float limitPosY = 4.45f;
     [SerializeField]
     private StartChecker startChecker;
+    private bool isGameOver;
 
     void Start()
     {
@@ -83,6 +84,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(isGameOver == true)
+        {
+            return;
+        }
         Move();
     }
 
@@ -178,5 +183,12 @@ public class PlayerController : MonoBehaviour
             uiManager.UpdateDisplayScore(coinPoint);
             Destroy(col.gameObject);
         }
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+        Debug.Log("isGameOver");
+        uiManager.DisplayGameOverInfo();
     }
 }
