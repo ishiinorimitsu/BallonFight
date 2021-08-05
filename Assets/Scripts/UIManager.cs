@@ -25,6 +25,17 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button btnInfo;
 
+    [SerializeField]
+    private Button btnTitle;
+
+    [SerializeField]
+    private Text lblStart;
+
+    [SerializeField]
+    private CanvasGroup canvasGroupTitle;
+
+    private Tweener tweener;
+
     ///<param name = "score" ></ param>
     public void UpdateDisplayScore(int score)
     {
@@ -54,5 +65,47 @@ public class UIManager : MonoBehaviour
                  Debug.Log("Restart");
                  SceneManager.LoadScene(sceneName);
              });
+    }
+
+    private void Start()
+    {
+        SwitchDisplayTitle(true,1.0f);
+        btnTitle.onClick.AddListener(OnClickTitle);
+    }
+
+    public void SwitchDisplayTitle(bool isSwitch,float alpha)
+    {
+        if (isSwitch) canvasGroupTitle.alpha = 0;
+        canvasGroupTitle.DOFade(alpha, 1.0f).SetEase(Ease.Linear).OnComplete(() =>
+       {
+           lblStart.gameObject.SetActive(isSwitch);
+       });
+
+        if(tweener == null)
+        {
+            //ñ≥å¿Ç…èàóùÇ™ë±Ç≠èÍçáÇÕtweenerÇ…ì¸ÇÍÇƒêßå‰Ç∑ÇÈÅiDOTweenÅj
+            tweener = lblStart.gameObject.GetComponent<CanvasGroup>().DOFade(0, 1.0f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        }
+    }
+
+    private void OnClickTitle()
+    {
+        btnTitle.onClick.RemoveAllListeners();
+        SwitchDisplayTitle(false, 0.0f);
+        StartCoroutine(DisplayGameStartInfo());
+    }
+
+    public IEnumerator DisplayGameStartInfo()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        canvasGroupInfo.alpha = 0;
+        canvasGroupInfo.DOFade(1.0f, 0.5f);
+        txtInfo.text = "GameStart!";
+
+        yield return new WaitForSeconds(1.0f);
+        canvasGroupInfo.DOFade(0,0.5f);
+
+        canvasGroupTitle.gameObject.SetActive(false);
     }
 }
