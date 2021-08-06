@@ -11,6 +11,7 @@ public class FloorGenerator : MonoBehaviour
     [Header("ê∂ê¨Ç‹Ç≈ÇÃë“ã@éûä‘")]
     public float waitTime;
     private float timer;
+    private GameDirector gameDirector;
 
     // Update is called once per frame
     void Update()
@@ -28,5 +29,11 @@ public class FloorGenerator : MonoBehaviour
         GameObject obj = Instantiate(aerialFloorPrefab,generateTran);
         float randomPosY = Random.Range(-4.0f, 4.0f);
         obj.transform.position = new Vector2(obj.transform.position.x,obj.transform.position.y + randomPosY);
+        gameDirector.GenerateCount++;
+    }
+
+    public void SetUpGenerator(GameDirector gameDirector)
+    {
+        this.gameDirector = gameDirector;
     }
 }

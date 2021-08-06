@@ -1106,6 +1106,9 @@ MonoBehaviour:
   resultPopUpPrefab: {fileID: 1363454388047396468, guid: 7a10cd777e271ec42a19172187f78faa, type: 3}
   canvasTran: {fileID: 1087229291}
   btnInfo: {fileID: 698530544}
+  btnTitle: {fileID: 1861006476}
+  lblStart: {fileID: 88229260}
+  canvasGroupTitle: {fileID: 729647501}
 --- !u!4 &1052803418
 Transform:
   m_ObjectHideFlags: 0
@@ -2286,6 +2289,7 @@ GameObject:
   - component: {fileID: 2143956227}
   - component: {fileID: 2143956226}
   - component: {fileID: 2143956228}
+  - component: {fileID: 2143956229}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2339,3 +2343,20 @@ MonoBehaviour:
   - {fileID: 5472896939960958569, guid: a77b7a78751373f419a92ff5d24de1de, type: 3}
   generateTran: {fileID: 1262650182}
   waitTimeRange: {x: 3, y: 7}
+--- !u!114 &2143956229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143956225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40a0e90f2fc18444a6151e4944c1a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalHousePrefab: {fileID: 5699381757026096028, guid: 76e642c827bedb946942d23a49c003ef, type: 3}
+  playerController: {fileID: 174656171}
+  floorGenerators:
+  - {fileID: 2143956226}
+  clearCount: 2
