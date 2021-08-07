@@ -15,6 +15,8 @@ public class RandomObjectGenerator : MonoBehaviour
 
     private float waitTime;
     private float timer;
+    private bool isActivate;  //true‚È‚ç¶¬
+    private GameDirector gameDirector;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,10 @@ public class RandomObjectGenerator : MonoBehaviour
     }
     void Update()
     {
+        if(isActivate == false)
+        {
+            return;
+        }
         timer += Time.deltaTime;
         if(timer >= waitTime)
         {
@@ -44,5 +50,10 @@ public class RandomObjectGenerator : MonoBehaviour
         float randomPosY = Random.Range(-4.0f, 4.0f);
         obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y + randomPosY);
         SetGenerateTime();
+    }
+
+    public void SwitchActivation(bool isSwitch)
+    {
+        isActivate = isSwitch;
     }
 }

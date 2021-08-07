@@ -12,10 +12,15 @@ public class FloorGenerator : MonoBehaviour
     public float waitTime;
     private float timer;
     private GameDirector gameDirector;
+    private bool isActivate;
 
     // Update is called once per frame
     void Update()
     {
+        if(isActivate == false)
+        {
+            return;
+        }
         timer += Time.deltaTime;
         if(timer > waitTime)
         {
@@ -35,5 +40,10 @@ public class FloorGenerator : MonoBehaviour
     public void SetUpGenerator(GameDirector gameDirector)
     {
         this.gameDirector = gameDirector;
+    }
+
+    public void SwitchActivation(bool isSwitch)
+    {
+        isActivate = isSwitch;
     }
 }

@@ -13,6 +13,9 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private FloorGenerator[] floorGenerators;       // floorGenerator スクリプトのアタッチされているゲームオブジェクトをアサイン
 
+    [SerializeField]
+    private RandomObjectGenerator[] randomObjectGenerators;
+
     private bool isSetUp;                           // ゲームの準備判定用。true になるとゲーム開始
 
     private bool isGameUp;                          // ゲーム終了判定用。true になるとゲーム終了
@@ -47,7 +50,7 @@ public class GameDirector : MonoBehaviour
 
         SetUpFloarGenerators();
 
-        Debug.Log("生成停止");
+        StopGenerators();
     }
 
     private void SetUpFloarGenerators()
@@ -69,6 +72,8 @@ public class GameDirector : MonoBehaviour
 
             // TODO 各ジェネレータを動かし始める
             Debug.Log("生成スタート");
+
+            ActivateGenerators();
         }
     }
     private void GenerateGoal()
@@ -91,5 +96,32 @@ public class GameDirector : MonoBehaviour
 
         // TODO 各ジェネレータを停止
         Debug.Log("生成停止");
+
+        StopGenerators();
+    }
+
+    private void StopGenerators()
+    {
+        for(int i = 0; i < randomObjectGenerators.Length; i++)
+        {
+            randomObjectGenerators[i].SwitchActivation(false);
+        }
+        for (int i = 0; i < floorGenerators.Length; i++)
+        {
+            floorGenerators[i].SwitchActivation(false);
+        }
+    }
+
+    private void ActivateGenerators()
+    {
+        for (int i = 0; i < randomObjectGenerators.Length; i++)
+        {
+            randomObjectGenerators[i].SwitchActivation(true);
+        }
+
+        for (int i = 0; i < floorGenerators.Length; i++)
+        {
+            floorGenerators[i].SwitchActivation(true);
+        }
     }
 }
