@@ -16,6 +16,9 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private RandomObjectGenerator[] randomObjectGenerators;
 
+    [SerializeField]
+    private AudioManager audioManager;
+
     private bool isSetUp;                           // ゲームの準備判定用。true になるとゲーム開始
 
     private bool isGameUp;                          // ゲーム終了判定用。true になるとゲーム終了
@@ -45,6 +48,8 @@ public class GameDirector : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(audioManager.PlayBGM(0));
+
         isGameUp = false;
         isSetUp = false;
 
@@ -66,6 +71,7 @@ public class GameDirector : MonoBehaviour
     {
         if (playerController.isFirstGenerateBallon && isSetUp == false)
         {
+            StartCoroutine(audioManager.PlayBGM(1));
 
             // 準備完了
             isSetUp = true;

@@ -2359,4 +2359,6 @@ MonoBehaviour:
   playerController: {fileID: 174656171}
   floorGenerators:
   - {fileID: 2143956226}
+  randomObjectGenerators:
+  - {fileID: 2143956228}
   clearCount: 2
