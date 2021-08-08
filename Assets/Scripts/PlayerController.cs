@@ -29,6 +29,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private StartChecker startChecker;
     private bool isGameOver;
+    [SerializeField]
+    private AudioClip knockBackSE;
+    [SerializeField]
+    private GameObject knockBackEffectPrefab;
+    [SerializeField]
+    private AudioClip coinSE;
+    [SerializeField]
+    private GameObject coinEffectPrefab;
 
     void Start()
     {
@@ -161,6 +169,9 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = (transform.position - col.transform.position).normalized;
             transform.position += direction * knockBackPower;
+            AudioSource.PlayClipAtPoint(knockBackSE, transform.position);
+            GameObject knockBackEffect = Instantiate(knockBackEffectPrefab, col.transform.position, Quaternion.identity);
+            Destroy(knockBackEffect, 0.5f);
         }
     }
 
@@ -182,6 +193,8 @@ public class PlayerController : MonoBehaviour
             coinPoint += col.gameObject.GetComponent<Coin>().point;
             uiManager.UpdateDisplayScore(coinPoint);
             Destroy(col.gameObject);
+            AudioSource.PlayClipAtPoint(coinSE, transform.position);
+            GameObject coinEffect = Instantiate(coinEffectPrefab, col.transform.position, Quaternion.identity);
         }
     }
 
