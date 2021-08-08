@@ -9,6 +9,8 @@ public class GoalChecker : MonoBehaviour
     private float stopPos = 6.5f;
     private bool isGoal;
     private GameDirector gameDirector;
+    [SerializeField]
+    private GameObject secretfloorObject;
     // Update is called once per frame
     void Update()
     {
@@ -29,6 +31,9 @@ public class GoalChecker : MonoBehaviour
             playerController.uiManager.GenerateResultPopUp(playerController.coinPoint);
 
             gameDirector.GoalClear();
+
+            secretfloorObject.SetActive(true);
+            secretfloorObject.transform.DOLocalMoveY(0.24f, 2.5f).SetEase(Ease.Linear).SetRelative();
 ;        }
     }
 
@@ -36,6 +41,7 @@ public class GoalChecker : MonoBehaviour
     {
 
         this.gameDirector = gameDirector;
+        secretfloorObject.SetActive(false);
 
         // TODO ëºÇ…èâä˙ê›íËÇ™ïKóvÇ»èÍçáÇ…ÇÕÇ±Ç±Ç…í«â¡Ç∑ÇÈ
     }
