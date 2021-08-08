@@ -87,6 +87,8 @@ public class GameDirector : MonoBehaviour
         // ゴール地点を生成
         GoalChecker goalHouse = Instantiate(goalHousePrefab);
 
+        goalHouse.SetUpGoalHouse(this);
+
         // TODO ゴール地点の初期設定
         Debug.Log("ゴール地点 生成");
     }
@@ -129,5 +131,12 @@ public class GameDirector : MonoBehaviour
         {
             floorGenerators[i].SwitchActivation(true);
         }
+    }
+
+    public void GoalClear()
+    {
+        // クリアの曲再生
+        StartCoroutine(audioManager.PlayBGM(2));
+
     }
 }

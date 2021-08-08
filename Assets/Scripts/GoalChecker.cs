@@ -8,6 +8,7 @@ public class GoalChecker : MonoBehaviour
     public float moveSpeed = 0.01f;
     private float stopPos = 6.5f;
     private bool isGoal;
+    private GameDirector gameDirector;
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +27,16 @@ public class GoalChecker : MonoBehaviour
 
             PlayerController playerController = col.gameObject.GetComponent<PlayerController>();
             playerController.uiManager.GenerateResultPopUp(playerController.coinPoint);
+
+            gameDirector.GoalClear();
 ;        }
+    }
+
+    public void SetUpGoalHouse(GameDirector gameDirector)
+    {
+
+        this.gameDirector = gameDirector;
+
+        // TODO ëºÇ…èâä˙ê›íËÇ™ïKóvÇ»èÍçáÇ…ÇÕÇ±Ç±Ç…í«â¡Ç∑ÇÈ
     }
 }
