@@ -1,42 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private string horizontal = "Horizontal";
+
     private string jump = "Jump";
+
     private Rigidbody2D rb;
+
     public float moveSpeed;
+
     public float jumpPower;
+
     public bool isGrounded;
+
     public GameObject[] ballons;
+
     public int MaxBallonCount;
+
     public Transform[] ballonTrans;
+
     public GameObject ballonPrefab;
+
     public float generateTime;
+
     public bool isGenerating;
+
     public bool isFirstGenerateBallon;
+
     public float knockBackPower;
+
     public int coinPoint;
+
     public UIManager uiManager;
+
     [SerializeField, Header("Linecast用 地面判定レイヤー")]
     private LayerMask groundLayer;
+
     private float scale;
+
     private Animator anim;
+
     private float limitPosX = 9.5f;
+
     private float limitPosY = 4.45f;
+
     [SerializeField]
     private StartChecker startChecker;
+
     private bool isGameOver;
+
     [SerializeField]
     private AudioClip knockBackSE;
+
     [SerializeField]
     private GameObject knockBackEffectPrefab;
+
     [SerializeField]
     private AudioClip coinSE;
+
     [SerializeField]
     private GameObject coinEffectPrefab;
+
+    [SerializeField]
+    private Joystick joystick;                        // FloatingJoystick ゲームオブジェクトにアタッチされている FloatingJoystick スクリプトのアサイン用
+
+    [SerializeField]
+    private Button btnJump;                           // btnJump ゲームオブジェクトにアタッチされている Button コンポーネントのアサイン用
+
+    [SerializeField]
+    private Button btnDetach;                         // btnDetachOrGenerate ゲームオブジェクトにアタッチされている Button コンポーネントのアサイン用
+
+    private int ballonCount;
 
     void Start()
     {
@@ -44,6 +82,8 @@ public class PlayerController : MonoBehaviour
         scale = transform.localScale.x;
         anim = GetComponent<Animator>();
         ballons = new GameObject[MaxBallonCount];
+        btnJump.onClick.AddListener(OnClickJump);
+        btnDetach.onClick.AddListener(OnClickDetachOrGenerate);
     }
 
     private void Update()
@@ -101,7 +141,13 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+#if UNITY_EDITOR
+        // 水平(横)方向への入力受付
         float x = Input.GetAxis(horizontal);
+        x = joystick.Horizontal; 
+#else
+        float x = joystick.Horizontal;
+#endif
         if(x != 0)
         {
             rb.velocity = new Vector2(x*moveSpeed,rb.velocity.y);
@@ -158,6 +204,8 @@ public class PlayerController : MonoBehaviour
             ballons[1].GetComponent<Ballon>().SetUpBallon(this);
         }
 
+        ballonCount++;
+
         yield return new WaitForSeconds(generateTime);
 
         isGenerating = false;
@@ -184,6 +232,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(ballons[0]);
         }
+
+        ballonCount--;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -203,5 +253,29 @@ public class PlayerController : MonoBehaviour
         isGameOver = true;
         Debug.Log("isGameOver");
         uiManager.DisplayGameOverInfo();
+    }
+
+    private void OnClickJump()
+    {
+        // バルーンが１つ以上あるなら
+        if (ballonCount > 0)
+        {
+            Jump();
+        }
+    }
+
+    /// <summary>
+    /// バルーン生成ボタンを押した際の処理
+    /// </summary>
+    private void OnClickDetachOrGenerate()
+    {
+
+        // 地面に接地していて、バルーンが２個以下の場合
+        if (isGrounded == true && ballonCount < MaxBallonCount && isGenerating == false)
+        {
+
+            // バルーンの生成中でなければ、バルーンを１つ作成する
+            StartCoroutine(GenerateBallon());
+        }
     }
 }

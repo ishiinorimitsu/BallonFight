@@ -371,6 +371,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   startChecker: {fileID: 1952083821}
+  knockBackSE: {fileID: 8300000, guid: f418431ee303ac3428357d320f231f22, type: 3}
+  knockBackEffectPrefab: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  coinSE: {fileID: 8300000, guid: 142de7fc34085774ea719eb87733c286, type: 3}
+  coinEffectPrefab: {fileID: 100000, guid: 3156817f64ec68948ad6bb26569b9ef5, type: 3}
 --- !u!70 &174656172
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1988,6 +1992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b91b486704329c4181750fa5005455b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 435186799}
 --- !u!1 &1598059610
 GameObject:
   m_ObjectHideFlags: 0
