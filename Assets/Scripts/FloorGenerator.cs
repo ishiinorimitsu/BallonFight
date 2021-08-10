@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FloorGenerator : MonoBehaviour
 {
+    //ヒエラルギーのゲームオブジェクトはアサインできるが、Prefabのものはprivateで宣言して箱を作っておいて、メソッドを通じて必要なヒエラルギーの情報をもらう。
     [SerializeField]
     private GameObject aerialFloorPrefab;
     [SerializeField]

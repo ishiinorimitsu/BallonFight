@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     public UIManager uiManager;
 
+    public Fire firePrefab;
+
     [SerializeField, Header("Linecast用 地面判定レイヤー")]
     private LayerMask groundLayer;
 
@@ -121,6 +123,9 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(GenerateBallon());
             }
         }
+
+        //攻撃用のボタンを押したらFirePrefabをInstantiate()
+        //shoot()メソッドを発動
     }
 
     public void Jump()

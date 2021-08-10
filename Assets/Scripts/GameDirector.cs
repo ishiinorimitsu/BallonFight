@@ -27,9 +27,9 @@ public class GameDirector : MonoBehaviour
 
     public int GenerateCount
     {
-        set
+        set    //代入するときに呼び出される
         {
-            generateCount = value;
+            generateCount = value;　//代入する値がvalueに入る
             Debug.Log("生成数 / クリア目標数 : " + generateCount + " / " + clearCount);
 
             if(generateCount >= clearCount)
