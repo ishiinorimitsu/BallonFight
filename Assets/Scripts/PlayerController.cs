@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     private string jump = "Jump";
 
+    private string fire1 = "Fire1";
+
     private Rigidbody2D rb;
 
     public float moveSpeed;
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public int MaxBallonCount;
 
     public Transform[] ballonTrans;
+
+    public Transform[] fireTrans;
 
     public GameObject ballonPrefab;
 
@@ -37,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     public UIManager uiManager;
 
-    public Fire firePrefab;
+    public GameObject firePrefab;
 
     [SerializeField, Header("Linecast用 地面判定レイヤー")]
     private LayerMask groundLayer;
@@ -108,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Debug.Log("バルーンがないので、ジャンプできません");
+            //Debug.Log("バルーンがないので、ジャンプできません");
         }
 
         if (rb.velocity.y > 5.0f)
@@ -123,6 +127,13 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(GenerateBallon());
             }
         }
+
+        if (Input.GetButtonDown(fire1))
+        {
+            GameObject firepre = Instantiate(firePrefab, fireTrans[0].position, firePrefab.transform.rotation);
+            firepre.GetComponent<Fire>().Shoot(gameObject);
+        }
+
 
         //攻撃用のボタンを押したらFirePrefabをInstantiate()
         //shoot()メソッドを発動
@@ -149,7 +160,7 @@ public class PlayerController : MonoBehaviour
 #if UNITY_EDITOR
         // 水平(横)方向への入力受付
         float x = Input.GetAxis(horizontal);
-        x = joystick.Horizontal; 
+        //x = joystick.Horizontal; 
 #else
         float x = joystick.Horizontal;
 #endif
