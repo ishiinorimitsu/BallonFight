@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject firePrefab;
 
+    public ParticleSystem rocketEffect;
+
     [SerializeField, Header("Linecast用 地面判定レイヤー")]
     private LayerMask groundLayer;
 
@@ -148,6 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(transform.up * jumpPower);
         anim.SetTrigger("Jump");
+        rocketEffect.Play();
     }
 
     // Update is called once per frame
