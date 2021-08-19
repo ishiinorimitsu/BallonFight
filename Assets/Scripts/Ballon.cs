@@ -22,7 +22,7 @@ public class Ballon : MonoBehaviour
         if(col.gameObject.tag == "Enemy")
         {
             tweener.Kill();
-            playerController.DestroyBallon();
+        //   playerController.DestroyBallon();
         }
     }
 }

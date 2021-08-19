@@ -88,8 +88,8 @@ public class PlayerController : MonoBehaviour
         scale = transform.localScale.x;
         anim = GetComponent<Animator>();
         ballons = new GameObject[MaxBallonCount];
-        btnJump.onClick.AddListener(OnClickJump);
-        btnDetach.onClick.AddListener(OnClickDetachOrGenerate);
+        //btnJump.onClick.AddListener(OnClickJump);
+        //btnDetach.onClick.AddListener(OnClickDetachOrGenerate);
     }
 
     private void Update()
@@ -98,21 +98,26 @@ public class PlayerController : MonoBehaviour
         Debug.DrawLine(transform.position + transform.up * 0.4f, transform.position - transform.up * 0.9f, Color.red, 1.0f);
 
 
-        if (ballons[0] != null)
-        {
-            if (Input.GetButtonDown(jump))
-            {
-                Jump();
-            }
+        //if (ballons[0] != null)
+        //{
+        //    if (Input.GetButtonDown(jump))
+        //    {
+        //        Jump();
+        //    }
 
-            if (isGrounded == false && rb.velocity.y < 0.15f)
-            {
-                anim.SetTrigger("Fall");
-            }
-        }
-        else
+        //    if (isGrounded == false && rb.velocity.y < 0.15f)
+        //    {
+        //        anim.SetTrigger("Fall");
+        //    }
+        //}
+        //else
+        //{
+        //    //Debug.Log("バルーンがないので、ジャンプできません");
+        //}
+
+        if (Input.GetButtonDown(jump))
         {
-            //Debug.Log("バルーンがないので、ジャンプできません");
+            Jump();
         }
 
         if (rb.velocity.y > 5.0f)
@@ -120,13 +125,13 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x,5);
         }
 
-        if(isGrounded == true && isGenerating == false)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                StartCoroutine(GenerateBallon());
-            }
-        }
+        //if(isGrounded == true && isGenerating == false)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Q))
+        //    {
+        //        StartCoroutine(GenerateBallon());
+        //    }
+        //}
 
         if (Input.GetButtonDown(fire1))
         {
@@ -194,38 +199,38 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector2(posX, posY);
     }
 
-    private IEnumerator GenerateBallon()
-    {
-        if (ballons[1] != null)
-        {
-            yield break;
-        }
+    //private IEnumerator GenerateBallon()
+    //{
+    //    if (ballons[1] != null)
+    //    {
+    //        yield break;
+    //    }
 
-        isGenerating = true;
+    //    isGenerating = true;
 
-        if(isFirstGenerateBallon == false)
-        {
-            isFirstGenerateBallon = true;
-            Debug.Log("初回のバルーン生成");
-            startChecker.SetInitialSpeed();
-        }
+    //    if(isFirstGenerateBallon == false)
+    //    {
+    //        isFirstGenerateBallon = true;
+    //        Debug.Log("初回のバルーン生成");
+    //        startChecker.SetInitialSpeed();
+    //    }
 
-        if(ballons[0] == null) {
-            ballons[0] = Instantiate(ballonPrefab, ballonTrans[0]);
-            ballons[0].GetComponent<Ballon>().SetUpBallon(this);
-        }
-        else
-        {
-            ballons[1] = Instantiate(ballonPrefab, ballonTrans[1]);
-            ballons[1].GetComponent<Ballon>().SetUpBallon(this);
-        }
+    //    if(ballons[0] == null) {
+    //        ballons[0] = Instantiate(ballonPrefab, ballonTrans[0]);
+    //        ballons[0].GetComponent<Ballon>().SetUpBallon(this);
+    //    }
+    //    else
+    //    {
+    //        ballons[1] = Instantiate(ballonPrefab, ballonTrans[1]);
+    //        ballons[1].GetComponent<Ballon>().SetUpBallon(this);
+    //    }
 
-        ballonCount++;
+    //    ballonCount++;
 
-        yield return new WaitForSeconds(generateTime);
+    //    yield return new WaitForSeconds(generateTime);
 
-        isGenerating = false;
-    }
+    //    isGenerating = false;
+    //}
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -239,18 +244,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void DestroyBallon()
-    {
-        if(ballons[1] != null)
-        {
-            Destroy(ballons[1]);
-        }else if(ballons[0] != null)
-        {
-            Destroy(ballons[0]);
-        }
+    //public void DestroyBallon()
+    //{
+    //    if(ballons[1] != null)
+    //    {
+    //        Destroy(ballons[1]);
+    //    }else if(ballons[0] != null)
+    //    {
+    //        Destroy(ballons[0]);
+    //    }
 
-        ballonCount--;
-    }
+    //    ballonCount--;
+    //}
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -271,27 +276,27 @@ public class PlayerController : MonoBehaviour
         uiManager.DisplayGameOverInfo();
     }
 
-    private void OnClickJump()
-    {
-        // バルーンが１つ以上あるなら
-        if (ballonCount > 0)
-        {
-            Jump();
-        }
-    }
+    //private void OnClickJump()
+    //{
+    //    // バルーンが１つ以上あるなら
+    //    if (ballonCount > 0)
+    //    {
+    //        Jump();
+    //    }
+    //}
 
     /// <summary>
     /// バルーン生成ボタンを押した際の処理
     /// </summary>
-    private void OnClickDetachOrGenerate()
-    {
+    //private void OnClickDetachOrGenerate()
+    //{
 
-        // 地面に接地していて、バルーンが２個以下の場合
-        if (isGrounded == true && ballonCount < MaxBallonCount && isGenerating == false)
-        {
+    //    // 地面に接地していて、バルーンが２個以下の場合
+    //    if (isGrounded == true && ballonCount < MaxBallonCount && isGenerating == false)
+    //    {
 
-            // バルーンの生成中でなければ、バルーンを１つ作成する
-            StartCoroutine(GenerateBallon());
-        }
-    }
+    //        // バルーンの生成中でなければ、バルーンを１つ作成する
+    //        StartCoroutine(GenerateBallon());
+    //    }
+    //}
 }

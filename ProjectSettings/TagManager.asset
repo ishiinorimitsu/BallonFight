@@ -7,6 +7,9 @@ TagManager:
   - DamageObject
   - Enemy
   - Coin
+  - Fire
+  - FxTemporaire
+  - Ground
   layers:
   - Default
   - TransparentFX
