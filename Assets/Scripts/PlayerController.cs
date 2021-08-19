@@ -45,6 +45,12 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem rocketEffect;
 
+    public int maxEnergy;      //所持エネルギー（マックスエネルギー）
+
+    public int jumpEnergy; 　　//一回ジャンプするごとに消費するエネルギー、1を基準として％で計算するよりも、持ち点のように100あって、10ずつ減るみたいなほうが作りやすい
+
+    public int attackEnergy;　　//一回攻撃するごとに使うエネルギー
+
     [SerializeField, Header("Linecast用 地面判定レイヤー")]
     private LayerMask groundLayer;
 
@@ -84,6 +90,9 @@ public class PlayerController : MonoBehaviour
 
     private int ballonCount;
 
+    [SerializeField]
+    private int currentEnergy;       //現在の残りエネルギー
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -92,6 +101,7 @@ public class PlayerController : MonoBehaviour
         ballons = new GameObject[MaxBallonCount];
         //btnJump.onClick.AddListener(OnClickJump);
         //btnDetach.onClick.AddListener(OnClickDetachOrGenerate);
+        currentEnergy = maxEnergy;
     }
 
     private void Update()
@@ -137,8 +147,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(fire1))
         {
-            GameObject firepre = Instantiate(firePrefab, fireTrans[0].position, firePrefab.transform.rotation);
-            firepre.GetComponent<Fire>().Shoot(gameObject);
+            if(currentEnergy >= attackEnergy)
+            {
+                GameObject firepre = Instantiate(firePrefab, fireTrans[0].position, firePrefab.transform.rotation);
+                firepre.GetComponent<Fire>().Shoot(gameObject);
+                currentEnergy -= attackEnergy;
+            }    
         }
 
 
@@ -148,9 +162,13 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        rb.AddForce(transform.up * jumpPower);
-        anim.SetTrigger("Jump");
-        rocketEffect.Play();
+        if(currentEnergy >= jumpEnergy)
+        {
+            currentEnergy -= jumpEnergy;
+            rb.AddForce(transform.up * jumpPower);
+            anim.SetTrigger("Jump");
+            rocketEffect.Play();
+        }
     }
 
     // Update is called once per frame

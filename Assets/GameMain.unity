@@ -373,6 +373,9 @@ MonoBehaviour:
   uiManager: {fileID: 1052803417}
   firePrefab: {fileID: 2506500216247105347, guid: 3c24b4dc0965e0b4f87e1c2ee78d879d, type: 3}
   rocketEffect: {fileID: 319446141324492357}
+  maxEnergy: 100
+  jumpEnergy: 5
+  attackEnergy: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -384,6 +387,7 @@ MonoBehaviour:
   joystick: {fileID: 1472370613}
   btnJump: {fileID: 2085787062}
   btnDetach: {fileID: 1048770901}
+  currentEnergy: 0
 --- !u!70 &174656172
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
