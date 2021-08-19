@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
 
     private Tweener tweener;
 
+    [SerializeField]
+    private Slider energySlider;
+
     ///<param name = "score" ></ param>
     public void UpdateDisplayScore(int score)
     {
@@ -107,5 +110,16 @@ public class UIManager : MonoBehaviour
         canvasGroupInfo.DOFade(0,0.5f);
 
         canvasGroupTitle.gameObject.SetActive(false);
+    }
+
+    public void SetSliderValue(int maxEnergy)
+    {
+        energySlider.maxValue = maxEnergy;
+        UpdateDisplayEnergy(maxEnergy);
+    }
+
+    public void UpdateDisplayEnergy(int currentEnergy)
+    {
+        energySlider.DOValue(currentEnergy, 1.0f);   //第一引数が目指す値（○○まで下げる）、第二引数が何秒かけるか
     }
 }

@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
         //btnJump.onClick.AddListener(OnClickJump);
         //btnDetach.onClick.AddListener(OnClickDetachOrGenerate);
         currentEnergy = maxEnergy;
+        uiManager.SetSliderValue(maxEnergy);
     }
 
     private void Update()
@@ -152,6 +153,7 @@ public class PlayerController : MonoBehaviour
                 GameObject firepre = Instantiate(firePrefab, fireTrans[0].position, firePrefab.transform.rotation);
                 firepre.GetComponent<Fire>().Shoot(gameObject);
                 currentEnergy -= attackEnergy;
+                uiManager.UpdateDisplayEnergy(currentEnergy);
             }    
         }
 
@@ -168,6 +170,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(transform.up * jumpPower);
             anim.SetTrigger("Jump");
             rocketEffect.Play();
+            uiManager.UpdateDisplayEnergy(currentEnergy);
         }
     }
 
