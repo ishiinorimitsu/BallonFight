@@ -8,12 +8,16 @@ public class EnemyDestroy : MonoBehaviour
     [SerializeField]
     private GameObject destroyEffect;
 
+    [SerializeField]
+    private GameObject fuelEnergy;
+
     public void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "Fire")
         {
-            GameObject effect = Instantiate(destroyEffect, transform.position,destroyEffect. transform.rotation);
+            GameObject effect = Instantiate(destroyEffect, transform.position,destroyEffect.transform.rotation);
             Destroy(effect, 1.0f);
+            GameObject energy = Instantiate(fuelEnergy, transform.position, fuelEnergy.transform.rotation);
             Destroy(gameObject);
         }
     }

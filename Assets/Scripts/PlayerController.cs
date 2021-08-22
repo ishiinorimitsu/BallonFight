@@ -110,6 +110,11 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.Linecast(transform.position + transform.up * 0.4f, transform.position - transform.up * 0.9f, groundLayer);
         Debug.DrawLine(transform.position + transform.up * 0.4f, transform.position - transform.up * 0.9f, Color.red, 1.0f);
 
+        if (currentEnergy >= 100)
+        {
+            currentEnergy = 100;
+            uiManager.UpdateDisplayEnergy(currentEnergy);
+        }
 
         //if (ballons[0] != null)
         //{
@@ -148,13 +153,13 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(fire1))
         {
-            if(currentEnergy >= attackEnergy)
+            if (currentEnergy >= attackEnergy)
             {
                 GameObject firepre = Instantiate(firePrefab, fireTrans[0].position, firePrefab.transform.rotation);
                 firepre.GetComponent<Fire>().Shoot(gameObject);
                 currentEnergy -= attackEnergy;
                 uiManager.UpdateDisplayEnergy(currentEnergy);
-            }    
+            }
         }
 
 
@@ -164,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if(currentEnergy >= jumpEnergy)
+        if (currentEnergy >= jumpEnergy)
         {
             currentEnergy -= jumpEnergy;
             rb.AddForce(transform.up * jumpPower);
@@ -290,6 +295,12 @@ public class PlayerController : MonoBehaviour
             Destroy(col.gameObject);
             AudioSource.PlayClipAtPoint(coinSE, transform.position);
             GameObject coinEffect = Instantiate(coinEffectPrefab, col.transform.position, Quaternion.identity);
+        }
+        else if(col.gameObject.tag == "Energy")
+        {
+            currentEnergy += 100;
+            Destroy(col.gameObject);
+            Debug.Log("Hit");
         }
     }
 
