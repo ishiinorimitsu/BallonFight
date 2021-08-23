@@ -7,12 +7,17 @@ public class FloorGenerator : MonoBehaviour
     //ヒエラルギーのゲームオブジェクトはアサインできるが、Prefabのものはprivateで宣言して箱を作っておいて、メソッドを通じて必要なヒエラルギーの情報をもらう。
     [SerializeField]
     private GameObject aerialFloorPrefab;
+
     [SerializeField]
     private Transform generateTran;
+
     [Header("生成までの待機時間")]
     public float waitTime;
+
     private float timer;
+
     private GameDirector gameDirector;
+
     private bool isActivate;
 
     // Update is called once per frame

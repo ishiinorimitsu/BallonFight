@@ -110,6 +110,11 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.Linecast(transform.position + transform.up * 0.4f, transform.position - transform.up * 0.9f, groundLayer);
         Debug.DrawLine(transform.position + transform.up * 0.4f, transform.position - transform.up * 0.9f, Color.red, 1.0f);
 
+        if (isGrounded == true)
+        {
+            currentEnergy += 1;
+        }
+
         if (currentEnergy >= 100)
         {
             currentEnergy = 100;

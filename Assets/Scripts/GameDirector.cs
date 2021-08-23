@@ -25,6 +25,8 @@ public class GameDirector : MonoBehaviour
 
     private int generateCount;                      //床の製造個数
 
+    private string start = "Start";
+
     public int GenerateCount
     {
         set    //代入するときに呼び出される
@@ -69,17 +71,21 @@ public class GameDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerController.isFirstGenerateBallon && isSetUp == false)
+        if (Input.GetButtonDown(start))
         {
-            StartCoroutine(audioManager.PlayBGM(1));
+            Debug.Log("Start");
+            if (isSetUp == false)
+            {
+                StartCoroutine(audioManager.PlayBGM(1));
 
-            // 準備完了
-            isSetUp = true;
+                // 準備完了
+                isSetUp = true;
 
-            // TODO 各ジェネレータを動かし始める
-            Debug.Log("生成スタート");
+                // TODO 各ジェネレータを動かし始める
+                Debug.Log("生成スタート");
 
-            ActivateGenerators();
+                ActivateGenerators();
+            }
         }
     }
     private void GenerateGoal()
