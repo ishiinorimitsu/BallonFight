@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5472896939960958581}
   - component: {fileID: 5472896939960958582}
   - component: {fileID: -1824242203317085014}
+  - component: {fileID: 1814213008738334177}
   m_Layer: 0
   m_Name: Eagle
   m_TagString: Enemy
@@ -184,3 +185,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyEffect: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  fuelEnergy: {fileID: 6892882215232684125, guid: a0385d76c4720e84f94a5ea5162cba6d, type: 3}
+  generateValue: 100
+  uimanagar: {fileID: 0}
+  getDestroyDamage: 500
+--- !u!114 &1814213008738334177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472896939960958569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b611d1fdc729a4d8c46987622318a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eagleHp: 20
+  enemyDestroy: {fileID: -1824242203317085014}

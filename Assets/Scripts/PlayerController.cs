@@ -37,7 +37,9 @@ public class PlayerController : MonoBehaviour
 
     public float knockBackPower;
 
-    public int coinPoint;
+    public int coinPoint;   //コインを一つ取った時のポイント
+
+    public int energyPoint;
 
     public UIManager uiManager;
 
@@ -93,6 +95,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int currentEnergy;       //現在の残りエネルギー
 
+    private float energyTimer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -112,7 +116,13 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded == true)
         {
-            currentEnergy += 1;
+            energyTimer ++; 
+            if(energyTimer >= 10)
+            {
+                currentEnergy += 1;
+                energyTimer = 0;
+                uiManager.UpdateDisplayEnergy(currentEnergy);
+            }
         }
 
         if (currentEnergy >= 100)
@@ -270,11 +280,13 @@ public class PlayerController : MonoBehaviour
     {
         if(col.gameObject.tag == "Enemy")
         {
-            Vector3 direction = (transform.position - col.transform.position).normalized;
-            transform.position += direction * knockBackPower;
-            AudioSource.PlayClipAtPoint(knockBackSE, transform.position);
-            GameObject knockBackEffect = Instantiate(knockBackEffectPrefab, col.transform.position, Quaternion.identity);
-            Destroy(knockBackEffect, 0.5f);
+            //Vector3 direction = (transform.position - col.transform.position).normalized;
+            //transform.position += direction * knockBackPower;
+            //AudioSource.PlayClipAtPoint(knockBackSE, transform.position);
+            //GameObject knockBackEffect = Instantiate(knockBackEffectPrefab, col.transform.position, Quaternion.identity);
+            //Destroy(knockBackEffect, 0.5f);
+            currentEnergy -= 10;
+            uiManager.UpdateDisplayEnergy(currentEnergy);
         }
     }
 
@@ -295,7 +307,7 @@ public class PlayerController : MonoBehaviour
     {
         if(col.gameObject.tag == "Coin")
         {
-            coinPoint += col.gameObject.GetComponent<Coin>().point;
+            coinPoint += col.gameObject.GetComponent<Coin>().getCoinPoint;
             uiManager.UpdateDisplayScore(coinPoint);
             Destroy(col.gameObject);
             AudioSource.PlayClipAtPoint(coinSE, transform.position);
@@ -303,6 +315,8 @@ public class PlayerController : MonoBehaviour
         }
         else if(col.gameObject.tag == "Energy")
         {
+            coinPoint += col.gameObject.GetComponent<Energy>().getEnergyPoint;
+            uiManager.UpdateDisplayScore(coinPoint);
             currentEnergy += 100;
             Destroy(col.gameObject);
             Debug.Log("Hit");

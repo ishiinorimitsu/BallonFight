@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public int point;
+    public int getCoinPoint;
 }

@@ -35,12 +35,13 @@ public class FloorGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateFloor()
+    public GameObject GenerateFloor()
     {
         GameObject obj = Instantiate(aerialFloorPrefab,generateTran);
         float randomPosY = Random.Range(-4.0f, 4.0f);
         obj.transform.position = new Vector2(obj.transform.position.x,obj.transform.position.y + randomPosY);
         gameDirector.GenerateCount++;
+        return obj;
     }
 
     public void SetUpGenerator(GameDirector gameDirector)

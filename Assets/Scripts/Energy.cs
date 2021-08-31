@@ -7,6 +7,8 @@ public class Energy : MonoBehaviour
 {
     Tween tweening;
     public float moveRenge;
+
+    public int getEnergyPoint;
     // Start is called before the first frame update
     void Start()
     {

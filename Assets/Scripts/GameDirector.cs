@@ -19,6 +19,9 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private AudioManager audioManager;
 
+    [SerializeField]
+    private StartChecker StartChecker;
+
     private bool isSetUp;                           // ゲームの準備判定用。true になるとゲーム開始
 
     private bool isGameUp;                          // ゲーム終了判定用。true になるとゲーム終了
@@ -47,6 +50,13 @@ public class GameDirector : MonoBehaviour
     }
 
     public int clearCount;
+
+    public void CreateFloorToMouse(GameObject obj)
+    {
+        GameObject floor = floorGenerators[0].GenerateFloor();
+        obj.transform.SetParent(floor.transform);
+        obj.transform.localPosition = new Vector3(2.44f,0.86f,0);
+    }
 
     void Start()
     {
@@ -85,6 +95,8 @@ public class GameDirector : MonoBehaviour
                 Debug.Log("生成スタート");
 
                 ActivateGenerators();
+
+                StartChecker.SetInitialSpeed();
             }
         }
     }
